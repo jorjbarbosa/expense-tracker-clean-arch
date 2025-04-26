@@ -1,8 +1,8 @@
-package com.project.expenses.infrastructure.persistence.config;
+package com.project.expenses.infrastructure.config;
 
 import com.project.expenses.application.usecases.category.CreateCategoryUseCase;
 import com.project.expenses.application.usecases.category.GetCategoryUseCase;
-import com.project.expenses.domain.repository.CategoryRepository;
+import com.project.expenses.application.gateways.CategoryRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

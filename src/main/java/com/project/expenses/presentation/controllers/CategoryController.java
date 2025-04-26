@@ -6,6 +6,7 @@ import com.project.expenses.domain.entity.Category;
 import com.project.expenses.infrastructure.mappers.CategoryMapper;
 import com.project.expenses.presentation.dto.request.CategoryRequest;
 import com.project.expenses.presentation.dto.response.CategoryResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,21 +15,12 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/categories")
+@RequiredArgsConstructor
 public class CategoryController {
     private final CreateCategoryUseCase createCategoryUseCase;
     private final GetCategoryUseCase getCategoryUseCase;
 
     private final CategoryMapper categoryMapper;
-
-    public CategoryController(
-            CreateCategoryUseCase createCategoryUseCase,
-            GetCategoryUseCase getCategoryUseCase,
-            CategoryMapper categoryMapper
-    ) {
-        this.createCategoryUseCase = createCategoryUseCase;
-        this.getCategoryUseCase = getCategoryUseCase;
-        this.categoryMapper = categoryMapper;
-    }
 
     @PostMapping
     public ResponseEntity<CategoryResponse> createCategory(@RequestBody CategoryRequest request) {
@@ -38,6 +30,7 @@ public class CategoryController {
 
     @GetMapping("{id}")
     public ResponseEntity<CategoryResponse> getCategory(@PathVariable UUID id) {
-        return ResponseEntity.ok(categoryMapper.toResponse(getCategoryUseCase.execute(id)));
+        Category category = getCategoryUseCase.execute(id);
+        return ResponseEntity.ok(categoryMapper.toResponse(category));
     }
 }

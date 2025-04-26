@@ -1,7 +1,7 @@
 package com.project.expenses.application.usecases.category;
 
 import com.project.expenses.domain.entity.Category;
-import com.project.expenses.domain.repository.CategoryRepository;
+import com.project.expenses.application.gateways.CategoryRepository;
 
 public class CreateCategoryUseCase {
     private final CategoryRepository categoryRepository;

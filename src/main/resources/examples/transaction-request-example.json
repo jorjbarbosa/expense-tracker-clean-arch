@@ -1,0 +1,7 @@
+{
+  "description": "Grocery shopping",
+  "amount": 125.50,
+  "categoryId": "123e4567-e89b-12d3-a456-426614174000",
+  "type": "EXPENSE",
+  "date": "2023-06-15T14:30:00"
+}

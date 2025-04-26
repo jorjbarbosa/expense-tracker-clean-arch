@@ -1,25 +1,23 @@
 package com.project.expenses.infrastructure.persistence.adapter;
 
-import com.project.expenses.application.exception.BussinessException;
 import com.project.expenses.domain.entity.Category;
-import com.project.expenses.domain.repository.CategoryRepository;
+import com.project.expenses.application.gateways.CategoryRepository;
 import com.project.expenses.infrastructure.mappers.CategoryMapper;
 import com.project.expenses.infrastructure.persistence.entity.CategoryEntity;
 import com.project.expenses.infrastructure.persistence.repository.CategoryJpaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
+@RequiredArgsConstructor
 public class CategoryRepositoryAdapter implements CategoryRepository {
     private final CategoryJpaRepository repository;
     private final CategoryMapper categoryMapper;
 
-    private CategoryRepositoryAdapter(CategoryJpaRepository repository, CategoryMapper categoryMapper) {
-        this.repository = repository;
-        this.categoryMapper = categoryMapper;
-    }
 
     @Override
     public Category save(Category category) {
@@ -28,9 +26,8 @@ public class CategoryRepositoryAdapter implements CategoryRepository {
     }
 
     @Override
-    public Category findById(UUID id) {
-        CategoryEntity categoryEntity = this.repository.findById(id).orElseThrow(() -> new BussinessException("Category not found"));
-        return categoryMapper.toDomain(categoryEntity);
+    public Optional<Category> findById(UUID id) {
+        return this.repository.findById(id).map(categoryMapper::toDomain);
     }
 
     @Override
