@@ -7,6 +7,5 @@ import java.util.UUID;
 
 public interface AccountRepository {
     Account save(Account account);
-
     Optional<Account> findById(UUID id);
 }
