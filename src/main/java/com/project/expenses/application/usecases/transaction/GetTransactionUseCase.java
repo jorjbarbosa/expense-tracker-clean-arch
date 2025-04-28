@@ -2,20 +2,19 @@ package com.project.expenses.application.usecases.transaction;
 
 import com.project.expenses.application.exception.BussinessException;
 import com.project.expenses.domain.entity.Transaction;
-import com.project.expenses.application.gateways.TransactionRepository;
+import com.project.expenses.application.gateways.TransactionRepositoryGateway;
 
-import java.util.Optional;
 import java.util.UUID;
 
 public class GetTransactionUseCase {
-    private final TransactionRepository transactionRepository;
+    private final TransactionRepositoryGateway transactionRepositoryGateway;
 
-    public GetTransactionUseCase(TransactionRepository transactionRepository) {
-        this.transactionRepository = transactionRepository;
+    public GetTransactionUseCase(TransactionRepositoryGateway transactionRepositoryGateway) {
+        this.transactionRepositoryGateway = transactionRepositoryGateway;
     }
 
     public Transaction execute(UUID id) {
-        return transactionRepository.findById(id)
+        return transactionRepositoryGateway.findById(id)
                 .orElseThrow(() -> new BussinessException("Transaction not found"));
     }
 }

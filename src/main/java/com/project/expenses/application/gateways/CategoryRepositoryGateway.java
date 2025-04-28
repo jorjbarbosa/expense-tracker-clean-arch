@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface CategoryRepository {
+public interface CategoryRepositoryGateway {
     Category save(Category category);
     Optional<Category> findById(UUID id);
     List<Category> findAll();

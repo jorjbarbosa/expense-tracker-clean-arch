@@ -1,7 +1,7 @@
 package com.project.expenses.infrastructure.persistence.adapter;
 
 import com.project.expenses.domain.entity.Category;
-import com.project.expenses.application.gateways.CategoryRepository;
+import com.project.expenses.application.gateways.CategoryRepositoryGateway;
 import com.project.expenses.infrastructure.mappers.CategoryMapper;
 import com.project.expenses.infrastructure.persistence.entity.CategoryEntity;
 import com.project.expenses.infrastructure.persistence.repository.CategoryJpaRepository;
@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class CategoryRepositoryAdapter implements CategoryRepository {
+public class CategoryRepositoryGatewayAdapter implements CategoryRepositoryGateway {
     private final CategoryJpaRepository repository;
     private final CategoryMapper categoryMapper;
 

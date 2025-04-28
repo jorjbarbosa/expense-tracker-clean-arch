@@ -1,6 +1,6 @@
 package com.project.expenses.infrastructure.persistence.adapter;
 
-import com.project.expenses.application.gateways.AccountRepository;
+import com.project.expenses.application.gateways.AccountRepositoryGateway;
 import com.project.expenses.domain.entity.Account;
 import com.project.expenses.infrastructure.mappers.AccountMapper;
 import com.project.expenses.infrastructure.persistence.entity.AccountEntity;
@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class AccountRepositoryAdapter implements AccountRepository {
+public class AccountRepositoryGatewayAdapter implements AccountRepositoryGateway {
     private final AccountMapper accountMapper;
     private final AccountJpaRepository accountJpaRepository;
 

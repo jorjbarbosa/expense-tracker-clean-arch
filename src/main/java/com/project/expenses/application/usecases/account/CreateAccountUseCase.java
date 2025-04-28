@@ -1,16 +1,16 @@
 package com.project.expenses.application.usecases.account;
 
-import com.project.expenses.application.gateways.AccountRepository;
+import com.project.expenses.application.gateways.AccountRepositoryGateway;
 import com.project.expenses.domain.entity.Account;
 
 public class CreateAccountUseCase {
-    private final AccountRepository accountRepository;
+    private final AccountRepositoryGateway accountRepositoryGateway;
 
-    public CreateAccountUseCase(AccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
+    public CreateAccountUseCase(AccountRepositoryGateway accountRepositoryGateway) {
+        this.accountRepositoryGateway = accountRepositoryGateway;
     }
 
     public Account execute(Account account) {
-       return accountRepository.save(account);
+       return accountRepositoryGateway.save(account);
     }
 }

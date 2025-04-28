@@ -1,6 +1,6 @@
 package com.project.expenses.infrastructure.persistence.adapter;
 
-import com.project.expenses.application.gateways.UserRepository;
+import com.project.expenses.application.gateways.UserRepositoryGateway;
 import com.project.expenses.domain.entity.User;
 import com.project.expenses.infrastructure.mappers.UserMapper;
 import com.project.expenses.infrastructure.persistence.entity.UserEntity;
@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class UserRepositoryAdapter implements UserRepository {
+public class UserRepositoryGatewayAdapter implements UserRepositoryGateway {
 
     private final UserJpaRepository userRepository;
     private final UserMapper userMapper;

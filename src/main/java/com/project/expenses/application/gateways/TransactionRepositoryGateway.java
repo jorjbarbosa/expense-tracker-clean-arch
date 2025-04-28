@@ -5,7 +5,7 @@ import com.project.expenses.domain.entity.Transaction;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface TransactionRepository {
+public interface TransactionRepositoryGateway {
     Transaction save(Transaction category);
     Optional<Transaction> findById(UUID id);
 }

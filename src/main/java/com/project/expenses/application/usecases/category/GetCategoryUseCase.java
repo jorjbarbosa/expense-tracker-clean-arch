@@ -2,20 +2,19 @@ package com.project.expenses.application.usecases.category;
 
 import com.project.expenses.application.exception.BussinessException;
 import com.project.expenses.domain.entity.Category;
-import com.project.expenses.application.gateways.CategoryRepository;
+import com.project.expenses.application.gateways.CategoryRepositoryGateway;
 
-import java.util.Optional;
 import java.util.UUID;
 
 public class GetCategoryUseCase {
-    private final CategoryRepository categoryRepository;
+    private final CategoryRepositoryGateway categoryRepositoryGateway;
 
-    public GetCategoryUseCase(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+    public GetCategoryUseCase(CategoryRepositoryGateway categoryRepositoryGateway) {
+        this.categoryRepositoryGateway = categoryRepositoryGateway;
     }
 
     public Category execute(UUID id) {
-        return categoryRepository.findById(id)
+        return categoryRepositoryGateway.findById(id)
                 .orElseThrow(() -> new BussinessException("Category Not Found"));
     }
 }

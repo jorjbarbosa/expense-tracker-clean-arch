@@ -1,16 +1,16 @@
 package com.project.expenses.application.usecases.category;
 
 import com.project.expenses.domain.entity.Category;
-import com.project.expenses.application.gateways.CategoryRepository;
+import com.project.expenses.application.gateways.CategoryRepositoryGateway;
 
 public class CreateCategoryUseCase {
-    private final CategoryRepository categoryRepository;
+    private final CategoryRepositoryGateway categoryRepositoryGateway;
 
-    public CreateCategoryUseCase(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+    public CreateCategoryUseCase(CategoryRepositoryGateway categoryRepositoryGateway) {
+        this.categoryRepositoryGateway = categoryRepositoryGateway;
     }
 
     public Category execute(Category category) {
-        return categoryRepository.save(category);
+        return categoryRepositoryGateway.save(category);
     }
 }

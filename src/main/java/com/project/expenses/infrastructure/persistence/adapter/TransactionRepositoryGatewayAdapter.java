@@ -1,6 +1,6 @@
 package com.project.expenses.infrastructure.persistence.adapter;
 
-import com.project.expenses.application.gateways.TransactionRepository;
+import com.project.expenses.application.gateways.TransactionRepositoryGateway;
 import com.project.expenses.domain.entity.Transaction;
 import com.project.expenses.infrastructure.mappers.TransactionMapper;
 import com.project.expenses.infrastructure.persistence.entity.TransactionEntity;
@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class TransactionRepositoryAdapter implements TransactionRepository {
+public class TransactionRepositoryGatewayAdapter implements TransactionRepositoryGateway {
 
     private final TransactionJpaRepository transactionRepository;
     private final TransactionMapper transactionMapper;
