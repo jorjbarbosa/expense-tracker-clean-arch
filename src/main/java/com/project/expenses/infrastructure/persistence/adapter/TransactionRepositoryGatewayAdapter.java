@@ -8,8 +8,12 @@ import com.project.expenses.infrastructure.persistence.repository.TransactionJpa
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -27,5 +31,12 @@ public class TransactionRepositoryGatewayAdapter implements TransactionRepositor
     @Override
     public Optional<Transaction> findById(UUID id) {
         return transactionRepository.findById(id).map(transactionMapper::toDomain);
+    }
+
+    @Override
+    public List<Transaction> findByUserIdAndDateBetween(UUID id, LocalDateTime startDate, LocalDateTime endDate) {
+        return transactionRepository.findByUserIdAndDateBetween(id, startDate, endDate)
+                .stream().map(transactionMapper::toDomain)
+                .collect(Collectors.toList());
     }
 }

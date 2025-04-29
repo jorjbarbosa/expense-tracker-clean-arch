@@ -2,24 +2,32 @@ package com.project.expenses.presentation.controllers;
 
 import com.project.expenses.application.usecases.transaction.CreateTransactionUseCase;
 import com.project.expenses.application.usecases.transaction.GetTransactionUseCase;
+import com.project.expenses.application.usecases.transaction.GetTransactionsByUserAndDateUseCase;
 import com.project.expenses.domain.entity.Transaction;
 import com.project.expenses.infrastructure.mappers.TransactionMapper;
 import com.project.expenses.presentation.dto.request.TransactionRequest;
 import com.project.expenses.presentation.dto.response.TransactionResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/transaction")
+@RequestMapping("/api/transactions")
 @RequiredArgsConstructor
 public class TransactionController {
     private final GetTransactionUseCase getTransactionUseCase;
+    private final GetTransactionsByUserAndDateUseCase getTransactionsByUserAndDateUseCase;
     private final CreateTransactionUseCase createTransactionUseCase;
     private final TransactionMapper transactionMapper;
 
@@ -39,5 +47,24 @@ public class TransactionController {
         var response = transactionMapper.toResponse(transaction);
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<TransactionResponse>> getTransactions(
+            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+            JwtAuthenticationToken token) {
+        UUID userId = UUID.fromString(token.getName());
+        LocalDateTime start = startDate.atStartOfDay();
+        LocalDateTime end = endDate.atTime(LocalTime.MAX);
+
+        List<TransactionResponse> transactions = getTransactionsByUserAndDateUseCase
+                .execute(userId, start, end)
+                .stream()
+                .map(transactionMapper::toResponse)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(transactions);
+
     }
 }
