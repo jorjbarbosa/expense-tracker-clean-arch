@@ -63,7 +63,7 @@ public class Account {
     }
 
     public void applyTransaction(Transaction transaction) {
-        if (TransactionType.EXPENSE.equals(transaction.getType())) {
+        if (TransactionType.REVENUE.equals(transaction.getType())) {
             this.currentBalance = currentBalance.add(transaction.getAmount());
         } else {
             this.currentBalance = currentBalance.subtract(transaction.getAmount());

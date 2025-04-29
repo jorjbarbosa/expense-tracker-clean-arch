@@ -24,7 +24,7 @@ public class TransactionEntity {
 
     private BigDecimal amount;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private TransactionType type;
 
     private LocalDateTime date;
