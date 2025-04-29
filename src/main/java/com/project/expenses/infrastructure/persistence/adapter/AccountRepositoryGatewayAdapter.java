@@ -27,4 +27,9 @@ public class AccountRepositoryGatewayAdapter implements AccountRepositoryGateway
     public Optional<Account> findById(UUID id) {
         return accountJpaRepository.findById(id).map(accountMapper::toDomain);
     }
+
+    @Override
+    public Optional<Account> findByIdAndUserId(UUID id, UUID userId) {
+        return accountJpaRepository.findByIdAndUserId(id, userId);
+    }
 }

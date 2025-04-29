@@ -3,6 +3,7 @@ package com.project.expenses.infrastructure.config;
 import com.project.expenses.application.gateways.AccountRepositoryGateway;
 import com.project.expenses.application.usecases.account.CreateAccountUseCase;
 import com.project.expenses.application.usecases.account.GetAccountUseCase;
+import com.project.expenses.application.usecases.account.UpdateAccountUseCase;
 import com.project.expenses.application.usecases.user.GetUserByIdUseCase;
 
 import org.springframework.context.annotation.Bean;
@@ -18,5 +19,10 @@ public class AccountConfigBean {
     @Bean
     GetAccountUseCase getAccountUseCase(AccountRepositoryGateway repository) {
         return new GetAccountUseCase(repository);
+    }
+
+    @Bean
+    UpdateAccountUseCase updateAccountUseCase(AccountRepositoryGateway repository) {
+        return new UpdateAccountUseCase(repository);
     }
 }

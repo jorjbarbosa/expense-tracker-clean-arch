@@ -8,4 +8,5 @@ import java.util.UUID;
 public interface AccountRepositoryGateway {
     Account save(Account account);
     Optional<Account> findById(UUID id);
+    Optional<Account> findByIdAndUserId(UUID id, UUID userId);
 }

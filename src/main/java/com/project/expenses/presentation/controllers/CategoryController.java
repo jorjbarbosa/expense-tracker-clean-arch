@@ -2,6 +2,7 @@ package com.project.expenses.presentation.controllers;
 
 import com.project.expenses.application.usecases.category.CreateCategoryUseCase;
 import com.project.expenses.application.usecases.category.GetCategoryUseCase;
+import com.project.expenses.application.usecases.category.UpdateCategoryUseCase;
 import com.project.expenses.domain.entity.Category;
 import com.project.expenses.infrastructure.mappers.CategoryMapper;
 import com.project.expenses.presentation.dto.request.CategoryRequest;
@@ -20,6 +21,7 @@ import java.util.UUID;
 public class CategoryController {
     private final CreateCategoryUseCase createCategoryUseCase;
     private final GetCategoryUseCase getCategoryUseCase;
+    private final UpdateCategoryUseCase updateCategoryUseCase;
 
     private final CategoryMapper categoryMapper;
 
@@ -34,6 +36,15 @@ public class CategoryController {
     public ResponseEntity<CategoryResponse> getCategory(@PathVariable UUID id, JwtAuthenticationToken token) {
         UUID userId = UUID.fromString(token.getName());
         Category category = getCategoryUseCase.execute(id, userId);
+        return ResponseEntity.ok(categoryMapper.toResponse(category));
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<CategoryResponse> update(@PathVariable UUID id, @RequestBody CategoryRequest request, JwtAuthenticationToken token) {
+        UUID userId = UUID.fromString(token.getName());
+        Category category = categoryMapper.toCategory(request);
+        category = updateCategoryUseCase.execute(id, category, userId);
+
         return ResponseEntity.ok(categoryMapper.toResponse(category));
     }
 }
