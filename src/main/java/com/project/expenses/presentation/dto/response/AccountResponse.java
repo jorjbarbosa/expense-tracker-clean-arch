@@ -9,5 +9,6 @@ public class AccountResponse {
     private UUID id;
     private String name;
     private String description;
-    private BigDecimal balance;
+    private BigDecimal initialBalance;
+    private BigDecimal currentBalance;
 }

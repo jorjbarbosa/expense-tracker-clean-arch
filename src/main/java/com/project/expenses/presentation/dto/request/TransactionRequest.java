@@ -15,6 +15,7 @@ public class TransactionRequest {
     private String description;
     private BigDecimal amount;
     private CategoryRequest category;
+    private AccountRequest account;
     private TransactionType type;
     private LocalDateTime date;
 }

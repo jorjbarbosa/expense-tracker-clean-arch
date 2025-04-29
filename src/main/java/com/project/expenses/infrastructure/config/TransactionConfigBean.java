@@ -1,5 +1,6 @@
 package com.project.expenses.infrastructure.config;
 
+import com.project.expenses.application.gateways.AccountRepositoryGateway;
 import com.project.expenses.application.gateways.TransactionRepositoryGateway;
 import com.project.expenses.application.usecases.category.GetCategoryUseCase;
 import com.project.expenses.application.usecases.transaction.CreateTransactionUseCase;
@@ -12,8 +13,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TransactionConfigBean {
     @Bean
-    CreateTransactionUseCase createTransactionUseCase(TransactionRepositoryGateway repository, GetCategoryUseCase getCategoryUseCase) {
-        return new CreateTransactionUseCase(repository, getCategoryUseCase);
+    CreateTransactionUseCase createTransactionUseCase(TransactionRepositoryGateway repository, GetCategoryUseCase getCategoryUseCase, AccountRepositoryGateway accountRepositoryGateway) {
+        return new CreateTransactionUseCase(repository, getCategoryUseCase, accountRepositoryGateway);
     }
 
     @Bean

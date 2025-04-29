@@ -1,5 +1,7 @@
 package com.project.expenses.domain.entity;
 
+import com.project.expenses.domain.enums.TransactionType;
+
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -8,7 +10,8 @@ public class Account {
     private UUID id;
     private String name;
     private String description;
-    private BigDecimal balance;
+    private BigDecimal initialBalance;
+    private BigDecimal currentBalance;
     private User user;
 
     public UUID getId() {
@@ -35,12 +38,20 @@ public class Account {
         this.description = description;
     }
 
-    public BigDecimal getBalance() {
-        return balance;
+    public BigDecimal getInitialBalance() {
+        return initialBalance;
     }
 
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
+    public void setInitialBalance(BigDecimal initialBalance) {
+        this.initialBalance = initialBalance;
+    }
+
+    public BigDecimal getCurrentBalance() {
+        return currentBalance;
+    }
+
+    public void setCurrentBalance(BigDecimal currentBalance) {
+        this.currentBalance = currentBalance;
     }
 
     public User getUser() {
@@ -49,5 +60,13 @@ public class Account {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void applyTransaction(Transaction transaction) {
+        if (TransactionType.EXPENSE.equals(transaction.getType())) {
+            this.currentBalance = currentBalance.add(transaction.getAmount());
+        } else {
+            this.currentBalance = currentBalance.subtract(transaction.getAmount());
+        }
     }
 }

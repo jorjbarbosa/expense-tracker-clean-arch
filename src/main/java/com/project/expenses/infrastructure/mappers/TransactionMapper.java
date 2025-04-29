@@ -16,6 +16,7 @@ public interface TransactionMapper {
     Transaction toDomain(TransactionEntity entity);
 
     @Mapping(source = "category", target = "category")
+    @Mapping(source = "account", target = "account")
     TransactionEntity toEntity(Transaction transaction);
 
     TransactionResponse toResponse(Transaction transaction);

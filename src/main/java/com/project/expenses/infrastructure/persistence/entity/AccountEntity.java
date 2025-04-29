@@ -22,7 +22,9 @@ public class AccountEntity {
 
     private String description;
 
-    private BigDecimal balance;
+    private BigDecimal initialBalance;
+
+    private BigDecimal currentBalance;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

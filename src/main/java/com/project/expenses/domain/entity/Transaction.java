@@ -12,6 +12,7 @@ public class Transaction {
     private BigDecimal amount;
     private Category category;
     private User user;
+    private Account account;
     private TransactionType type;
     private LocalDateTime date;
 
@@ -53,6 +54,14 @@ public class Transaction {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public TransactionType getType() {
