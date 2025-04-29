@@ -24,6 +24,7 @@ public class TransactionEntity {
 
     private BigDecimal amount;
 
+    @Enumerated(EnumType.ORDINAL)
     private TransactionType type;
 
     private LocalDateTime date;
@@ -32,4 +33,7 @@ public class TransactionEntity {
     @JoinColumn(name = "category_id", nullable = false)
     private CategoryEntity category;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
 }

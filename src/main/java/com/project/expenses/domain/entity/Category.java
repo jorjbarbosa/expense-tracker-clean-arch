@@ -5,6 +5,7 @@ import java.util.UUID;
 public class Category {
     private UUID id;
     private String name;
+    private User user;
 
     public UUID getId() {
         return id;
@@ -20,5 +21,13 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

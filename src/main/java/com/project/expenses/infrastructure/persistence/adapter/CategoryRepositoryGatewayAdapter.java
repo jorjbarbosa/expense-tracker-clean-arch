@@ -26,8 +26,8 @@ public class CategoryRepositoryGatewayAdapter implements CategoryRepositoryGatew
     }
 
     @Override
-    public Optional<Category> findById(UUID id) {
-        return this.repository.findById(id).map(categoryMapper::toDomain);
+    public Optional<Category> findByIdAndUserId(UUID categoryId, UUID userId) {
+        return this.repository.findByIdAndUserId(categoryId, userId).map(categoryMapper::toDomain);
     }
 
     @Override

@@ -21,6 +21,10 @@ public class CategoryEntity {
     private UUID id;
     private String name;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
+
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TransactionEntity>  transactions;
 }

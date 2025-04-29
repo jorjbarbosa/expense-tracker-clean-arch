@@ -13,8 +13,8 @@ public class GetCategoryUseCase {
         this.categoryRepositoryGateway = categoryRepositoryGateway;
     }
 
-    public Category execute(UUID id) {
-        return categoryRepositoryGateway.findById(id)
+    public Category execute(UUID categoryId, UUID userId) {
+        return categoryRepositoryGateway.findByIdAndUserId(categoryId, userId)
                 .orElseThrow(() -> new BussinessException("Category Not Found"));
     }
 }

@@ -16,5 +16,6 @@ public interface CategoryMapper {
     CategoryResponse toResponse(Category category);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "user", ignore = true)
     Category toCategory(CategoryRequest request);
 }

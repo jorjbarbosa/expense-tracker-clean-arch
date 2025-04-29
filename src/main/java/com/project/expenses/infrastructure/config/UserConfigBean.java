@@ -10,12 +10,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class UserConfigBean {
     @Bean
-    public CreateUserUseCase createUserUseCase(UserRepositoryGateway userRepositoryGateway) {
+    CreateUserUseCase createUserUseCase(UserRepositoryGateway userRepositoryGateway) {
         return new CreateUserUseCase(userRepositoryGateway);
     }
 
     @Bean
-    public GetUserByIdUseCase getUserByIdUseCase(UserRepositoryGateway userRepositoryGateway) {
+    GetUserByIdUseCase getUserByIdUseCase(UserRepositoryGateway userRepositoryGateway) {
         return new GetUserByIdUseCase(userRepositoryGateway);
     }
 

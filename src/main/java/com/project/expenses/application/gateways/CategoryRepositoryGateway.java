@@ -8,6 +8,6 @@ import java.util.UUID;
 
 public interface CategoryRepositoryGateway {
     Category save(Category category);
-    Optional<Category> findById(UUID id);
+    Optional<Category> findByIdAndUserId(UUID categoryId, UUID userId);
     List<Category> findAll();
 }

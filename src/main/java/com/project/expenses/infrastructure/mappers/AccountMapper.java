@@ -13,6 +13,7 @@ public interface AccountMapper {
     Account toDomain(AccountEntity entity);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "user", ignore = true)
     Account toAccount(AccountRequest request);
 
     AccountResponse toResponse(Account account);

@@ -21,5 +21,6 @@ public interface TransactionMapper {
     TransactionResponse toResponse(Transaction transaction);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "user", ignore = true)
     Transaction toTransaction(TransactionRequest request);
 }

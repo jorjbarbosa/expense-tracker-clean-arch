@@ -5,6 +5,8 @@ import com.project.expenses.domain.entity.Category;
 import com.project.expenses.domain.entity.Transaction;
 import com.project.expenses.application.gateways.TransactionRepositoryGateway;
 
+import java.util.UUID;
+
 public class CreateTransactionUseCase {
     private final TransactionRepositoryGateway transactionRepositoryGateway;
     private final GetCategoryUseCase getCategoryUseCase;
@@ -14,9 +16,10 @@ public class CreateTransactionUseCase {
         this.getCategoryUseCase = getCategoryUseCase;
     }
 
-    public Transaction execute(Transaction transaction) {
-        Category category = getCategoryUseCase.execute(transaction.getCategory().getId());
+    public Transaction execute(Transaction transaction, UUID userId) {
+        Category category = getCategoryUseCase.execute(transaction.getCategory().getId(), userId);
         transaction.setCategory(category);
+        transaction.setUser(category.getUser());
         return transactionRepositoryGateway.save(transaction);
     }
 }
