@@ -36,8 +36,11 @@ public class AccountController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<AccountResponse> getAccount(@PathVariable UUID id) {
-        Account account = getAccountUseCase.execute(id);
+    public ResponseEntity<AccountResponse> getAccount(@PathVariable UUID id, JwtAuthenticationToken token) {
+        UUID userId = UUID.fromString(token.getName());
+
+        Account account = getAccountUseCase.execute(id, userId);
+
         return ResponseEntity.ok(accountMapper.toResponse(account));
     }
 

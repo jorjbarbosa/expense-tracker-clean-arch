@@ -13,8 +13,8 @@ public class GetAccountUseCase {
         this.accountRepositoryGateway = accountRepositoryGateway;
     }
 
-    public Account execute(UUID id) {
-        return accountRepositoryGateway.findById(id)
+    public Account execute(UUID id, UUID userId) {
+        return accountRepositoryGateway.findByIdAndUserId(id, userId)
                 .orElseThrow(() -> new BussinessException("Category not found"));
     }
 }

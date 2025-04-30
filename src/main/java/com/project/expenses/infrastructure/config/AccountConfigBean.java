@@ -22,7 +22,7 @@ public class AccountConfigBean {
     }
 
     @Bean
-    UpdateAccountUseCase updateAccountUseCase(AccountRepositoryGateway repository) {
-        return new UpdateAccountUseCase(repository);
+    UpdateAccountUseCase updateAccountUseCase(AccountRepositoryGateway repository, GetAccountUseCase getAccountUseCase) {
+        return new UpdateAccountUseCase(repository, getAccountUseCase);
     }
 }

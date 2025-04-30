@@ -22,12 +22,12 @@ public class UserConfigBean {
     }
 
     @Bean
-    public GetUserByEmailUseCase getUserByEmailUseCase(UserRepositoryGateway userRepositoryGateway) {
+    GetUserByEmailUseCase getUserByEmailUseCase(UserRepositoryGateway userRepositoryGateway) {
         return new GetUserByEmailUseCase(userRepositoryGateway);
     }
 
     @Bean
-    public UpdateUserUseCase updateUserUseCase(UserRepositoryGateway userRepository, PasswordEncoderGateway passwordEncoder) {
-        return new UpdateUserUseCase(userRepository, passwordEncoder);
+    UpdateUserUseCase updateUserUseCase(UserRepositoryGateway userRepository, PasswordEncoderGateway passwordEncoder, GetUserByIdUseCase getUserByIdUseCase) {
+        return new UpdateUserUseCase(userRepository, passwordEncoder, getUserByIdUseCase);
     }
 }

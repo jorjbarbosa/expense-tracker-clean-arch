@@ -22,7 +22,7 @@ public class CategoryConfigBean {
     }
 
     @Bean
-    UpdateCategoryUseCase updateCategoryUseCase(CategoryRepositoryGateway repository) {
-        return new UpdateCategoryUseCase(repository);
+    UpdateCategoryUseCase updateCategoryUseCase(CategoryRepositoryGateway repository, GetCategoryUseCase getCategoryUseCase) {
+        return new UpdateCategoryUseCase(repository, getCategoryUseCase);
     }
 }

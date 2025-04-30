@@ -8,17 +8,18 @@ import com.project.expenses.domain.entity.User;
 import java.util.UUID;
 
 public class UpdateUserUseCase {
+    private final GetUserByIdUseCase getUserByIdUseCase;
     private final UserRepositoryGateway userRepository;
     private final PasswordEncoderGateway passwordEncoder;
 
-    public UpdateUserUseCase(UserRepositoryGateway userRepository, PasswordEncoderGateway passwordEncoder) {
+    public UpdateUserUseCase(UserRepositoryGateway userRepository, PasswordEncoderGateway passwordEncoder, GetUserByIdUseCase getUserByIdUseCase) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.getUserByIdUseCase = getUserByIdUseCase;
     }
 
     public User execute(UUID id, User data) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new BussinessException("User not found"));
+        User user = getUserByIdUseCase.execute(id);
 
         user.setName(data.getName());
         user.setEmail(data.getEmail());

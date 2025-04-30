@@ -29,7 +29,7 @@ public class TransactionConfigBean {
     }
 
     @Bean
-    UpdateTransactionUseCase updateTransactionUseCase(TransactionRepositoryGateway repositoryGateway) {
-        return new UpdateTransactionUseCase(repositoryGateway);
+    UpdateTransactionUseCase updateTransactionUseCase(TransactionRepositoryGateway repositoryGateway, GetTransactionUseCase getTransactionUseCase) {
+        return new UpdateTransactionUseCase(repositoryGateway, getTransactionUseCase);
     }
 }

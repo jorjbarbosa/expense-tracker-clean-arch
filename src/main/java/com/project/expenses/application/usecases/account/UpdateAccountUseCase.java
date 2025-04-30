@@ -1,22 +1,23 @@
 package com.project.expenses.application.usecases.account;
 
-import com.project.expenses.application.exception.BussinessException;
 import com.project.expenses.application.gateways.AccountRepositoryGateway;
-import com.project.expenses.application.usecases.category.UpdateCategoryUseCase;
 import com.project.expenses.domain.entity.Account;
 
 import java.util.UUID;
 
 public class UpdateAccountUseCase {
     private final AccountRepositoryGateway accountRepository;
+    private final GetAccountUseCase getAccountUseCase;
 
-    public UpdateAccountUseCase(AccountRepositoryGateway accountRepository) {
+    public UpdateAccountUseCase(AccountRepositoryGateway accountRepository, GetAccountUseCase getAccountUseCase) {
         this.accountRepository = accountRepository;
+        this.getAccountUseCase = getAccountUseCase;
     }
 
     public Account execute(UUID id, Account data, UUID userId) {
-        Account account = accountRepository.findByIdAndUserId(id, userId)
-                .orElseThrow(() -> new BussinessException("Account not found"));
+        Account account = getAccountUseCase.execute(id, userId);
+
+        account.setName(data.getName());
 
         account.setName(data.getName());
         account.setDescription(data.getDescription());
