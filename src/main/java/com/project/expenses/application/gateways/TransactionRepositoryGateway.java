@@ -9,6 +9,6 @@ import java.util.UUID;
 
 public interface TransactionRepositoryGateway {
     Transaction save(Transaction category);
-    Optional<Transaction> findById(UUID id);
+    Optional<Transaction> findByIdAndUserId(UUID id, UUID userId);
     List<Transaction> findByUserIdAndDateBetween(UUID id, LocalDateTime startDate, LocalDateTime endDate);
 }

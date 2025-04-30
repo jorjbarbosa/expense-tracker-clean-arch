@@ -1,9 +1,11 @@
 package com.project.expenses.infrastructure.config;
 
 import com.project.expenses.application.gateways.UserRepositoryGateway;
+import com.project.expenses.application.gateways.auth.PasswordEncoderGateway;
 import com.project.expenses.application.usecases.user.CreateUserUseCase;
 import com.project.expenses.application.usecases.user.GetUserByEmailUseCase;
 import com.project.expenses.application.usecases.user.GetUserByIdUseCase;
+import com.project.expenses.application.usecases.user.UpdateUserUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,5 +24,10 @@ public class UserConfigBean {
     @Bean
     public GetUserByEmailUseCase getUserByEmailUseCase(UserRepositoryGateway userRepositoryGateway) {
         return new GetUserByEmailUseCase(userRepositoryGateway);
+    }
+
+    @Bean
+    public UpdateUserUseCase updateUserUseCase(UserRepositoryGateway userRepository, PasswordEncoderGateway passwordEncoder) {
+        return new UpdateUserUseCase(userRepository, passwordEncoder);
     }
 }

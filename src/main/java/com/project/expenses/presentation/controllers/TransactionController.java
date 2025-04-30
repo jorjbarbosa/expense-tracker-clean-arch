@@ -3,6 +3,7 @@ package com.project.expenses.presentation.controllers;
 import com.project.expenses.application.usecases.transaction.CreateTransactionUseCase;
 import com.project.expenses.application.usecases.transaction.GetTransactionUseCase;
 import com.project.expenses.application.usecases.transaction.GetTransactionsByUserAndDateUseCase;
+import com.project.expenses.application.usecases.transaction.UpdateTransactionUseCase;
 import com.project.expenses.domain.entity.Transaction;
 import com.project.expenses.infrastructure.mappers.TransactionMapper;
 import com.project.expenses.presentation.dto.request.TransactionRequest;
@@ -20,7 +21,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/transactions")
@@ -29,6 +29,8 @@ public class TransactionController {
     private final GetTransactionUseCase getTransactionUseCase;
     private final GetTransactionsByUserAndDateUseCase getTransactionsByUserAndDateUseCase;
     private final CreateTransactionUseCase createTransactionUseCase;
+    private final UpdateTransactionUseCase updateTransactionUseCase;
+
     private final TransactionMapper transactionMapper;
 
     @PostMapping
@@ -42,8 +44,10 @@ public class TransactionController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<TransactionResponse> getTransaction(@PathVariable UUID id) {
-        Transaction transaction = getTransactionUseCase.execute(id);
+    public ResponseEntity<TransactionResponse> getTransaction(@PathVariable UUID id, JwtAuthenticationToken token) {
+        UUID userId = UUID.fromString(token.getName());
+
+        Transaction transaction = getTransactionUseCase.execute(id, userId);
         var response = transactionMapper.toResponse(transaction);
 
         return ResponseEntity.ok(response);
@@ -62,9 +66,17 @@ public class TransactionController {
                 .execute(userId, start, end)
                 .stream()
                 .map(transactionMapper::toResponse)
-                .collect(Collectors.toList());
+                .toList();
 
         return ResponseEntity.ok(transactions);
+    }
 
+    @PutMapping("{id}")
+    public ResponseEntity<TransactionResponse> update(@PathVariable UUID id, @RequestBody TransactionRequest request, JwtAuthenticationToken token) {
+        UUID userId = UUID.fromString(token.getName());
+        Transaction transaction = transactionMapper.toTransaction(request);
+        transaction = updateTransactionUseCase.execute(id, transaction, userId);
+
+        return ResponseEntity.ok(transactionMapper.toResponse(transaction));
     }
 }

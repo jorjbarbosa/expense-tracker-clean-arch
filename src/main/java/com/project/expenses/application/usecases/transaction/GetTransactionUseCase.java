@@ -13,8 +13,8 @@ public class GetTransactionUseCase {
         this.transactionRepositoryGateway = transactionRepositoryGateway;
     }
 
-    public Transaction execute(UUID id) {
-        return transactionRepositoryGateway.findById(id)
+    public Transaction execute(UUID id, UUID userId) {
+        return transactionRepositoryGateway.findByIdAndUserId(id, userId)
                 .orElseThrow(() -> new BussinessException("Transaction not found"));
     }
 }

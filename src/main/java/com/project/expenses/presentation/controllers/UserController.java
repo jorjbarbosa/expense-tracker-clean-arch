@@ -3,6 +3,7 @@ package com.project.expenses.presentation.controllers;
 import com.project.expenses.application.usecases.user.CreateUserUseCase;
 import com.project.expenses.application.usecases.user.GetUserByEmailUseCase;
 import com.project.expenses.application.usecases.user.GetUserByIdUseCase;
+import com.project.expenses.application.usecases.user.UpdateUserUseCase;
 import com.project.expenses.domain.entity.User;
 import com.project.expenses.infrastructure.mappers.UserMapper;
 import com.project.expenses.presentation.dto.request.UserRequest;
@@ -21,6 +22,7 @@ import java.util.UUID;
 public class UserController {
     private final CreateUserUseCase createUserUseCase;
     private final GetUserByIdUseCase getUserByIdUseCase;
+    private final UpdateUserUseCase updateUserUseCase;
 
     private final UserMapper userMapper;
 
@@ -37,5 +39,13 @@ public class UserController {
     public ResponseEntity<UserResponse> getById(@PathVariable UUID id) {
         User user = getUserByIdUseCase.execute(id);
         return ResponseEntity.ok(userMapper.toResponse(user));
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<UserResponse> update(@PathVariable UUID id, @RequestBody UserRequest request) {
+        User user = userMapper.toUser(request);
+        user = updateUserUseCase.execute(id, user);
+        UserResponse response = userMapper.toResponse(user);
+        return ResponseEntity.ok(response);
     }
 }

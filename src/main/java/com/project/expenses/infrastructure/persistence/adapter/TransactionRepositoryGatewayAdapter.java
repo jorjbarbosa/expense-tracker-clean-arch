@@ -29,8 +29,8 @@ public class TransactionRepositoryGatewayAdapter implements TransactionRepositor
     }
 
     @Override
-    public Optional<Transaction> findById(UUID id) {
-        return transactionRepository.findById(id).map(transactionMapper::toDomain);
+    public Optional<Transaction> findByIdAndUserId(UUID id, UUID userId) {
+        return transactionRepository.findByIdAndUserId(id, userId).map(transactionMapper::toDomain);
     }
 
     @Override

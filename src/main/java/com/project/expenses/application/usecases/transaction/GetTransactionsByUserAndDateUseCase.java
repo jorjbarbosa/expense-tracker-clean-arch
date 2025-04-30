@@ -3,7 +3,6 @@ package com.project.expenses.application.usecases.transaction;
 import com.project.expenses.application.gateways.TransactionRepositoryGateway;
 import com.project.expenses.domain.entity.Transaction;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
